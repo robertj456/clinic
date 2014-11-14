@@ -3,7 +3,6 @@
 
 		<!-- end header -->
 		</div>
-
 		<div class="jumbotron specialjum">
             <h1>Hello.</h1>
 			<h2> <small class="text-muted">Please enter your credentials below</small></h2>

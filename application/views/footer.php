@@ -1,5 +1,5 @@
 		<div class="footer">
-		<h4 class ="text-muted">&copy; Malcolm Laing 2014</h4>
+		<h4 class ="text-muted">&copy; Group 6 2014</h4>
 		</div>
 	
 	<!-- end container -->
