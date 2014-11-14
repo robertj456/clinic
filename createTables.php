@@ -1,4 +1,7 @@
 <?php
+
+$hashpass = password_hash("John", PASSWORD_BCRYPT);
+
 $mysqli = new mysqli("localhost:3306", "root", "");
 
 /* check connection */
@@ -16,14 +19,15 @@ if ($mysqli->ping()) {
 
 $create_table = 
 "
+
 CREATE DATABASE IF NOT EXISTS CQS;
 USE CQS;
 
-DROP TABLE IF EXISTS patient;
+DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS visit;
 DROP TABLE IF EXISTS queue;
 DROP TABLE IF EXISTS system;
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS patient;
 
 
 CREATE TABLE patient 
@@ -69,28 +73,36 @@ CREATE TABLE visit
  (
  CURRENT_POSITION INT(2) PRIMARY KEY
  );
- 
+
  CREATE TABLE user 
  (
  USER_ID INT(11) PRIMARY KEY auto_increment,
  USER_NAME VARCHAR(255) NOT NULL,
  HASHED_PASSWORD VARCHAR(255),
- INVALID_LOGIN INT(1),
- RECEPTION BOOLEAN,
- TRIAGE BOOLEAN,
- NURSE BOOLEAN,
- ADMIN BOOLEAN
- );";
+ INVALID_LOGIN INT(1) DEFAULT 0,
+ RECEPTION BOOLEAN DEFAULT FALSE,
+ TRIAGE BOOLEAN DEFAULT FALSE,
+ NURSE BOOLEAN DEFAULT FALSE,
+ ADMIN BOOLEAN DEFAULT FALSE
+ );
+ INSERT INTO user (USER_NAME, HASH_PASSWORD, RECEPTION) VALUES ('JOHN', '1', 1);
+ ";
 
 $create_tbl = $mysqli->multi_query($create_table);
 
 if ($create_tbl) {
 	echo "Table has created";
+	echo $mysqli->error;
 }
 else {
 	echo $mysqli->error;
         echo "error!!";  
 }
+
+
+
+
+echo $hashpass;
 
 $mysqli->close();
 ?>

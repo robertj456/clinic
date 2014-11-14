@@ -2,14 +2,10 @@
 Class User extends CI_Model {
 	
 	function login($username, $password) {
-		$this -> db -> select('user_id', 'user_name', 'hashed_password', 'invalid_login', 'reception', 'triage', 'nurse', 'admin');
-		$this -> db -> from('user');
-		$this -> db -> where('user_name', $username);
+		$sql = "SELECT hashed_password from USER where user_name = ?";
+		$login = $this->db->query($sql, array($username))->result();
 		
-		$query = $this -> db -> get();
-		$result = $query->result();
-		
-		return var_dump($result);
+		return var_dump($login);
 		
 		//return (password_verify($password, $returnedPassword));
 	}
