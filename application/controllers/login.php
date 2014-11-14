@@ -12,15 +12,24 @@ class Login extends CI_Controller {
 	}
 	
 	function login_user() {
+
+		// create instance of user model
 		
+		$this->load->model('user');
+	
 		$email = $this->input->post('username');
 		$pass = $this->input->post('password');
 		
+		var_dump($this->user->login($email, $pass));
 		// If values were passed in, validate.
+		
+		
+		
 
 	}
 	
 	function show_login( $show_error = false ) {
+	
 		$data['error'] = $show_error;
 		$this->load->helper(array('form'));
 		$headerData = array(
@@ -29,6 +38,7 @@ class Login extends CI_Controller {
 		$loginData = array(
 			'pageTitle' => 'Client Queuing System'
 		);
+		
 		$this->load->view('header', $headerData);
 		$this->load->view('login_view', $data);
 		$this->load->view('footer');

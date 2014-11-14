@@ -4,10 +4,12 @@
 		<!-- end header -->
 		</div>
 		<div class="jumbotron specialjum">
+		 <div class="row">
             <h1>Hello.</h1>
 			<h2> <small class="text-muted">Please enter your credentials below</small></h2>
-				   <?php echo validation_errors(); ?>
-				   <?php echo form_open('login'); ?>
+				
+				<!-- display errors by checking isset($error) -->
+				<?php echo form_open('login/login_user'); ?>
 
 				<div class="form-horizontal" role="form">
 					
@@ -33,6 +35,8 @@
 
 				<!-- end form -->
 				</div>
+				<!-- end row -->
+			</div>
 		<!-- end jumbotron-->
+
 		</div>
-		
