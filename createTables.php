@@ -85,9 +85,8 @@ CREATE TABLE visit
  NURSE BOOLEAN DEFAULT FALSE,
  ADMIN BOOLEAN DEFAULT FALSE
  );
- INSERT INTO user (USER_NAME, HASH_PASSWORD, RECEPTION) VALUES ('JOHN', '1', 1);
  ";
-
+ 
 $create_tbl = $mysqli->multi_query($create_table);
 
 if ($create_tbl) {
@@ -99,10 +98,14 @@ else {
         echo "error!!";  
 }
 
+$insertUser = "
 
+USE CQS;
+INSERT INTO USER(USER_NAME, HASHED_PASSWORD, RECEPTION) VALUES ('John', $hashpass, 1);
 
+";
 
-echo $hashpass;
+$insertUser = $mysqli->multi_query($insertUser);
 
 $mysqli->close();
 ?>

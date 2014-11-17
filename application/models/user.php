@@ -2,13 +2,21 @@
 Class User extends CI_Model {
 	
 	function login($username, $password) {
+		$valid = false;
+		
 		$sql = "SELECT hashed_password from USER where user_name = ?";
-		$login = $this->db->query($sql, array($username))->result();
 		
-		return var_dump($login);
+		$login = $this->db->query($sql, array($username))->row_array();
 		
-		//return (password_verify($password, $returnedPassword));
+		if ( count($login) === 1) {
+		
+			if ($password === $login['hashed_password']) {
+				$valid = true;
+				}
+		}
+	
+		return $valid;
 	}
-}
 
+}
 ?>

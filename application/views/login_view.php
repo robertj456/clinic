@@ -7,23 +7,23 @@
 		 <div class="row">
             <h1>Hello.</h1>
 			<h2> <small class="text-muted">Please enter your credentials below</small></h2>
-				
+				<?php echo validation_errors(); ?>
 				<!-- display errors by checking isset($error) -->
-				<?php echo form_open('login/login_user'); ?>
+				<?php echo form_open('login'); ?>
 
 				<div class="form-horizontal" role="form">
 					
 					<div class="form-group">
 						<label for="inputUser" class="col-sm-2 control-label">Username</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="username" placeholder="Enter username">
+							<input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label for="inputPass" class="col-sm-2 control-label">Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="password" placeholder="Password">
+							<input type="password" class="form-control" id="password" name="password" placeholder="Password">
 						</div>
 					</div>
 
