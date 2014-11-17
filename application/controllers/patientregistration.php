@@ -2,12 +2,15 @@
  
 class PatientRegistration extends CI_Controller {
  
+	function __construct() {
+		parent::__construct();
+	}
 	function index()
 	{
-	if ($this->session->userdata('isLoggedIn')) {
+	if ($this->session->userdata('logged_in')) {
 		$this->show_registration();
 		} else {
-			//redirect
+			//
 		}
 	}
 		

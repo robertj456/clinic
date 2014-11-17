@@ -12,8 +12,8 @@ class Login extends CI_Controller {
 	function index() {
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('username', 'Username', 'required|htmlentities');
-		$this->form_validation->set_rules('password', 'Password', 'required|htmlentities');
+		$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|callback_login_user');
 		
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -23,29 +23,48 @@ class Login extends CI_Controller {
 		}
 		else
 		{
-			$validLogin = $this->login_user();
-			if ($validLogin) {
-				//redirect
-			}
+			$this->load->view('header');
+			$this->load->view('patient_registration_view');
+			$this->load->view('footer');
+	
 		}
 	
 	}
 	
   
-	function login_user() {
+	function login_user($password) {
 
 		// create instance of user model
 		
 		$this->load->model('user');
 	
-		$email = $this->input->post('username');
-		$pass = $this->input->post('password');
+		$user = $this->input->post('username');
 		
-		var_dump($this->user->login($email, $pass));
+		$result = ($this->user->login($user, $password));
+		
+		if ($result) {
+			// successful login - set session data.
+			$session_array = array();
+			foreach ($result as $key => $value) {
+				if ($key === 'HASHED_PASSWORD') {
+					continue;
+				}
+				$session_array[$key] = $value;
+			}
+			
+			// dump it into session
+			$this->session->set_userdata('logged_in', $session_array);
+			return true;
 
-		// If values were passed in, validate.
+		}
+		
+		else {
+				$this->form_validation->set_message('login_user', 'Invalid username or password');
+				return false;
+			}
+		}
 
-	}
+
 
 	/*
 	function show_login( $show_error = false ) {
