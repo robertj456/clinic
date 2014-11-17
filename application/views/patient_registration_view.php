@@ -1,14 +1,19 @@
 		<div class="header"><h3 class="text-muted">Patient Registration & Triage Queuing</h3>
 		<!-- end header -->
 		</div>
-		
+    <?php echo validation_errors(); ?>
+		<?php echo 'hello'; ?>
+		<?php echo form_open('patientregistration'); ?>
+
+
 		<div class="form" role="form">
 			<div class="form-group">
-				<label for="inputRAMQ">RAMQ</label>
+				<label for="inputRAMQ">Please enter patient's RAMQ number</label>
+				<input type="text" class="form-control" name="ramq" id="ramq" placeholder="Enter Patient's RAMQ Number">
 				
-				<input type="text" class="form-control" id="username" placeholder="Enter Patient's RAMQ Number">
 			</div>
 
+			<!--
 			<div class="form-group">
 				<label for="selectMedication">Medication 1</label>
 						<select class="form-control" id="select1">
@@ -46,16 +51,13 @@
 				<label for="inputConditions">Existing Conditions</label>
 						<textarea class="form-control" id="conditions" placeholder="Existing conditions"></textarea>
 			</div>
-			
+		-->
 			  <div class="form-group">
-					<button type="submit" class="btn" value="Submit">Add to Queue</button>
+					<button type="submit" class="btn" value="Submit">Submit</button>
 				</div>
 
-		</form>
+		
 		
 						If not in DB, show registration form / else display info and can edit.
 
-		<div class="footer">
-		<h4 class ="text-muted">Malcolm Laing</h4>
-		</div>
 	
