@@ -12,7 +12,7 @@ class Login extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|callback_login_user');
-
+		$this->form_validation->set_error_delimiters('<span class="help-block">', '</span>');
 
 		if ($this->form_validation->run() == FALSE) {
 		$headerData = array(
@@ -42,6 +42,10 @@ class Login extends CI_Controller {
 		$this->load->model('user');
 	
 		$user = $this->input->post('username');
+		
+		if (count(trim($user)) == 0) {
+			return false;
+		}
 		
 		$result = ($this->user->login($user, $password));
 		
