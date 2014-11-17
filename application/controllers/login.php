@@ -5,8 +5,6 @@ class Login extends CI_Controller {
  
 	public function __construct() {
 		parent:: __construct();
-		
-		//$this->load->library();
 	}
  
 	function index() {
@@ -14,19 +12,24 @@ class Login extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|callback_login_user');
+
+
+		if ($this->form_validation->run() == FALSE) {
+		$headerData = array(
+			'title' => 'CQS - Login'
+		);
+		$loginData = array(
+			'pageTitle' => 'Client Queuing System',
+		);
 		
-		if ($this->form_validation->run() == FALSE)
-		{
-			$this->load->view('header');
-			$this->load->view('login_view');
-			$this->load->view('footer');
+		$this->load->view('header', $headerData);
+		$this->load->view('login_view', $loginData);
+		$this->load->view('footer');
+
 		}
-		else
+		else // login was successful, redirect
 		{
-			$this->load->view('header');
-			$this->load->view('patient_registration_view');
-			$this->load->view('footer');
-	
+			redirect('patientregistration', 'refresh');
 		}
 	
 	}

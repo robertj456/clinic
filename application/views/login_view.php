@@ -10,7 +10,7 @@
 				<?php echo validation_errors(); ?>
 				<!-- display errors by checking isset($error) -->
 				<?php echo form_open('login'); ?>
-
+				
 				<div class="form-horizontal" role="form">
 					
 					<div class="form-group">
