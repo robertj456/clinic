@@ -8,9 +8,7 @@
             <h1>Hello.</h1>
 			<h2> <small class="text-muted">Please enter your credentials below</small></h2>
 				
-				<?php echo form_error('password'); ?>
-				<?php echo form_error('username'); ?>
-				
+				<?php echo validation_errors(); ?>				
 				<?php echo form_open('login'); ?>
 				
 				<div class="form-horizontal" role="form">

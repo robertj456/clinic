@@ -9,15 +9,19 @@ class PatientRegistration extends CI_Controller
     {
         parent::__construct();
 		$this->load->library('form_validation');
-
     }
     function index()
     {
+	
+	    $this->form_validation->set_rules('ramq', 'RAMQ', 'trim|required|xss_clean|callback_get_patient');
+
         if (!$this->session->userdata('logged_in')) {
-            redirect('login', 'refresh');
+            //redirect('login', 'refresh');
         } else {
             if ($this->form_validation->run() == FALSE) {		
 				$this->show_registration();
+				//echo $this->get_patient();
+				
 				
 			} else // ramq was correct
                 {
@@ -33,7 +37,7 @@ class PatientRegistration extends CI_Controller
         $this->load->model('patient');
         $ramq    = $this->input->post('ramq');
         $patient = ($this->patient->findPatient($ramq));
-        
+		
 		if (!$patient) {
 		    $this->form_validation->set_message('get_patient', 'No patient found');
 			return false;
@@ -51,8 +55,6 @@ class PatientRegistration extends CI_Controller
             'url'
         ));
 
-        $this->form_validation->set_rules('ramq', 'RAMQ', 'trim|required|xss_clean|callback_get_patient');
-        
         $headerData = array(
             'title' => 'CQS - Patient Registration'
         );

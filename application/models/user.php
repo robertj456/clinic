@@ -1,6 +1,18 @@
 <?php
 Class User extends CI_Model {
 	
+	function getInvalidCount($username) {
+			$sql = "SELECT INVALID_LOGIN from USER where user_name = ?";
+			$query = $this->db->query($sql, array($username))->row_array();
+			
+			if ( count($query) != 0) {
+				return $query['INVALID_LOGIN'];
+			}
+			else {
+				return false;
+			}
+	}
+	
 	function login($username, $password) {
 		
 		$sql = "SELECT * from USER where user_name = ?";
@@ -8,18 +20,35 @@ Class User extends CI_Model {
 		$login = $this->db->query($sql, array($username))->row_array();
 		
 		if ( count($login) != 0) {
-			// a record was retrieved from the db.	
+			
+			// A record was retrieved from the DB. That means there is a record that
+			// matches the user id entered by the user.
 			
 			$passValid = password_verify($password, $login['HASHED_PASSWORD']);
-			$loginState = $this->incrementInvalidLogin($login['USER_ID'], $login['INVALID_LOGIN']);
 			
-			if (!$passValid || !$loginState) {
+			
+			// User typed in incorrect password. Increment invalid login count.
+			if (!$passValid) {
+				$this->incrementInvalidLogin($login['USER_ID'], $login['INVALID_LOGIN']);
 				return false;
 			}
-			return $login;
+			
+			else {
+				if ($login['INVALID_LOGIN'] < 5) {
+					return $login;
+				}
+				else {
+					// user has entered login info wrong too many times.
+					return false;
+				}
+			}
 		}
-	
-		return false;
+		
+		// no record was found. Probably should increment login attempts based on ip...
+		else {
+			return false;
+		}
+		
 	}
 	
 	/*

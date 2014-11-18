@@ -1,12 +1,10 @@
 		<div class="header"><h3 class="text-muted">Patient Registration & Triage Queuing</h3>
 		<!-- end header -->
 		</div>
-    <?php echo validation_errors(); ?>
-		<?php echo 'hello'; ?>
 		<?php echo form_open('patientregistration'); ?>
-
-
 		<div class="form" role="form">
+				<?php echo validation_errors(); ?>
+		<?php echo form_error('get_patient'); ?>
 			<div class="form-group">
 				<label for="inputRAMQ">Please enter patient's RAMQ number</label>
 				<input type="text" class="form-control" name="ramq" id="ramq" placeholder="Enter Patient's RAMQ Number">

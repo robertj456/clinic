@@ -29,6 +29,13 @@ class Login extends CI_Controller
             $this->load->view('footer');
         } else // login was successful, redirect
             {
+			$headerData = array(
+                'title' => 'CQS - Patient Registration'
+            );
+
+			//$this->load->view('header', $headerData);
+			//$this->load->view('patient_registration_view');
+			//$this->load->view('footer');
             redirect('patientregistration', 'refresh');
         }
     }
@@ -40,9 +47,18 @@ class Login extends CI_Controller
         if (count(trim($user)) == 0) {
             return false;
         }
+		
+		$invalidCount = ($this->user->getInvalidCount($user));
+		if ($invalidCount >= 5) {
+			$this->form_validation->set_message('login_user', 'Too many attempts - contact admin to reset password');
+            return false;
+
+		}
+		
         $result = ($this->user->login($user, $password));
         if ($result) {
-            // successful login - set session data.
+            
+			// successful login - set session data.
             $session_array = array();
             foreach ($result as $key => $value) {
                 if ($key === 'HASHED_PASSWORD') {
@@ -54,9 +70,11 @@ class Login extends CI_Controller
             $this->session->set_userdata('logged_in', $session_array);
             return true;
         } else {
-            $this->form_validation->set_message('login_user', 'Invalid username or password');
+            
+			$this->form_validation->set_message('login_user', 'Incorrect username or password');
             return false;
-        }
+		}
+      
     }
 }
 ?>

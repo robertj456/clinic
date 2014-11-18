@@ -12,6 +12,7 @@ Class Patient extends CI_Model {
 		}
 
 		else {
+			// no patient found.
 			return false;
 		}
 	}
