@@ -4,6 +4,7 @@ if (!defined('BASEPATH'))
 
 class PatientRegistration extends CI_Controller
 {
+	private $patient;
     
     function __construct()
     {
@@ -19,13 +20,13 @@ class PatientRegistration extends CI_Controller
             //redirect('login', 'refresh');
         } else {
             if ($this->form_validation->run() == FALSE) {		
-				$this->show_registration();
+				$this->show_registration(false);
 				//echo $this->get_patient();
 				
 				
 			} else // ramq was correct
                 {
-                echo "correct ramq";
+				$this->show_registration(true);
             }
         }
     }
@@ -44,12 +45,13 @@ class PatientRegistration extends CI_Controller
 		}
 		
 		else {
+			$this->patient = $patient;
 			return true;
 		}
 		// here we can show the other fields and populate them.
     }
     
-    function show_registration()
+    function show_registration($patientFound)
     {   $this->load->helper(array(
             'form',
             'url'
@@ -58,9 +60,22 @@ class PatientRegistration extends CI_Controller
         $headerData = array(
             'title' => 'CQS - Patient Registration'
         );
+		if ($patientFound) {
+		$registrationData = array(
+			'patientExists' => true,
+			
+		);
+		}
+		
+		else {
+		$registrationData = array(
+			'patientExists' => false
+		);
+		
+		}
         
-        $this->load->view('header', $headerData);
-        $this->load->view('patient_registration_view');
+        $this->load->view('header', $headerData);        
+		$this->load->view('patient_registration_view');
         $this->load->view('footer');
     }
     
