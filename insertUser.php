@@ -30,7 +30,7 @@ USE CQS;
 INSERT INTO PATIENT(RAMQ_ID, FIRST_NAME, LAST_NAME, HOME_PHONE, EMERGENCY_PHONE, PRIMARY_PHYSICIAN, EXISTING_CONDITIONS, MEDICATION_1, MEDICATION_2, MEDICATION_3) VALUES ('123', 'John', 'SMITH', '555-555-5555', '555-666-6666', 'Doctor Who', 'Awesomeitis', 'Advil', 'Caffeine Pills', 'Coffee');
 ";
 
-
+$mysqli->multi_query($insertPatient);
 
 $mysqli->close();
 ?>
