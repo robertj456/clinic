@@ -72,7 +72,27 @@ class PatientRegistration extends CI_Controller
         
 		$this->load->view('header', $headerData);        
 		if ($patient != null) {
-			$this->load->view('patient_registration_view', $patient);
+		
+
+			$medications = array (
+				'1' => 'Xanax',
+				'2' => 'Tramadol',
+				'3' => 'Lipitor',
+				'4' => 'Ambien',
+				'5' => 'Coffee',
+				'6' => 'Donuts',
+				'7' => 'Cheeseburgers',
+				'8' => 'Beer',
+				'9' => 'Morphine',
+				'10' => 'Hot Chocolate',
+				'11' => 'Advil',
+				'12' => 'Caffeine Pills'
+			);
+			
+			$data['medications'] = $medications;
+			$data['patient'] = $patient;
+
+			$this->load->view('patient_registration_view', $data);
 		}
 		else {
 			$this->load->view('patient_registration_view');
