@@ -5,7 +5,7 @@
 		</div>
 		<div class="jumbotron specialjum">
 		 <div class="row">
-            <h1>Hello.</h1>
+            <h1>CQS. <small class="text-muted">Client Queuing System</small></h1>
 			<h2> <small class="text-muted">Please enter your credentials below</small></h2>
 				
 				<?php echo validation_errors(); ?>				

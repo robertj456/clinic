@@ -13,9 +13,11 @@ class PatientRegistration extends CI_Controller
     {
 	
 	    $this->form_validation->set_rules('ramq', 'RAMQ', 'trim|required|xss_clean');
-
-        if (!$this->session->userdata('logged_in')) {
-            //redirect('login', 'refresh');
+		
+		// if user is not logged in or does not have receptionist privileges.
+        if (!$this->session->userdata('logged_in') || !$this->session->userdata('logged_in')['RECEPTION']) {
+            redirect('login', 'refresh');
+			
         } else {
 			
 			// form has not yet been submitted.
