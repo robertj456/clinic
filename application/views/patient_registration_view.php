@@ -3,53 +3,73 @@
 		</div>
 
 		<div class ="well">
-		
-		 
-		<?php 
 
-		echo form_open('patientregistration');
-		echo '<div class="form" role="form">';
-		echo validation_errors();
+		<?php echo form_open('patientregistration');?>
+		<?php echo '<div class="form" role="form">';?>
+		<?php echo validation_errors();?>
 
-			// show other fields.
 
-			echo "<div class='form-group'><div class='row'><label for='ramq' class='col-sm-2 control-label'>RAMQ</label>";
-			echo "<div class='col-sm-4'>";
-			echo "<input type='text' class='form-control' name='ramq' placeholder='Ramq' value=$patient[RAMQ_ID] >";
-			echo '</div></div></div>';
+		<div class='form-group'>
+			<div class='row'>
+				<label for='ramq' class='col-sm-2 control-label'>RAMQ</label>
+				<div class='col-sm-4'>
+					<input type='text' class='form-control' name='ramq' placeholder='Ramq' value=<?php echo $patient['RAMQ_ID']?>>
+				</div>
+			</div>
+		</div>
 			
-			echo "<div class='form-group'><div class='row'><label for='inputFirstName' class='col-sm-2 control-label'>First Name</label>";
-			echo "<div class='col-sm-4'>";
-			echo "<input type='text' class='form-control' name='firstName' placeholder='First name'";
-			echo isset($patient['FIRST_NAME']) ? "value=$patient[FIRST_NAME]>" : ">";
-			echo '</div></div></div>';
+		<div class='form-group'>
+			<div class='row'>
+				<label for='inputFirstName' class='col-sm-2 control-label'>First Name</label>
+					<div class='col-sm-4'>
+						<input type='text' class='form-control' name='firstName' placeholder='First name'
+						<?php echo isset($patient['FIRST_NAME']) ? "value=$patient[FIRST_NAME]" : ""; ?> >
+					</div>
+				</div>
+		</div>
 
-			echo "<div class='form-group'><div class='row'><label for='inputLastName' class='col-sm-2 control-label'>Last Name</label>";
-			echo "<div class='col-sm-4'>";
-			echo "<input type='text' class='form-control' name='lastName' placeholder='Last name'";
-			echo isset($patient['LAST_NAME']) ? "value=$patient[LAST_NAME]>" : ">";
-			echo '</div></div></div>';
+		<div class='form-group'>
+			<div class='row'><label for='inputLastName' class='col-sm-2 control-label'>Last Name</label>
+				<div class='col-sm-4'>
+					<input type='text' class='form-control' name='lastName' placeholder='Last name'
+						<?php echo isset($patient['LAST_NAME']) ? "value=$patient[LAST_NAME]" : ""; ?> >
+				</div>
+			</div>
+		</div>
 			
-			echo "<div class='form-group'><div class='row'><label for='inputHomePhone' class='col-sm-2 control-label'>Home Phone</label>";
-			echo "<div class='col-sm-4'>";
-			echo "<input type='text' class='form-control' name='homePhone' placeholder='Home phone'";
-			echo isset($patient['HOME_PHONE']) ? "value=$patient[HOME_PHONE]>" : ">";
-			echo '</div></div></div>';
+		<div class='form-group'>
+			<div class='row'>
+				<label for='inputHomePhone' class='col-sm-2 control-label'>Home Phone</label>
+					<div class='col-sm-4'>
+						<input type='text' class='form-control' name='homePhone' placeholder='Home phone'
+							<?php echo isset($patient['HOME_PHONE']) ? "value=$patient[HOME_PHONE]" : ""; ?> >
+					</div>
+			</div>
+		</div>
 			
-			echo "<div class='form-group'><div class='row'><label for='inputEmergency' class='col-sm-2 control-label'>Emergency Contact</label>";
-			echo "<div class='col-sm-4'>";
-			echo "<input type='text' class='form-control' name='emergencyPhone' placeholder='Emergency Contact'";
-			echo isset($patient['EMERGENCY_PHONE']) ? "value=$patient[EMERGENCY_PHONE]>" : ">";
-			echo '</div></div></div>';
+		<div class='form-group'>
+			<div class='row'><label for='inputEmergency' class='col-sm-2 control-label'>Emergency Contact</label>
+				<div class='col-sm-4'>
+					<input type='text' class='form-control' name='emergencyPhone' placeholder='Emergency Contact'
+						<?php echo isset($patient['EMERGENCY_PHONE']) ? "value=$patient[EMERGENCY_PHONE]" : ""; ?> >
+				</div>
+			</div>
+		</div>
 			
-			echo "<div class='form group'><div class='row'><label for='conditions' class='col-sm-2 control-label'>Existing Conditions</label>";
-			echo "<div class='col-lg-8 col-md-4 col-sm-4'><textarea class='form-control' style='margin-bottom:20px;' name='conditions' placeholder='Existing conditions'>";
-			echo isset($patient['EXISTING_CONDITIONS']) ? "$patient[EXISTING_CONDITIONS]</textarea>" : "</textarea>";
-			echo "</div></div></div>";
+		<div class='form group'>
+			<div class='row'>
+				<label for='conditions' class='col-sm-2 control-label'>Existing Conditions</label>
+					<div class='col-lg-8 col-md-4 col-sm-4'><textarea class='form-control' style='margin-bottom:20px;' name='conditions' placeholder='Existing conditions'>
+						<?php echo isset($patient['EXISTING_CONDITIONS']) ? "$patient[EXISTING_CONDITIONS]</textarea>" : "</textarea>"; ?> 
+					</div>
+			</div>
+		</div>
 			
-			echo "<div class='form-group'><div class='row'><label for='medication1' class='col-sm-2 control-label'>Medication 1</label>";
-			echo "<div class='col-sm-4'><select class='form-control' name='select1'>";
-			
+		<div class='form-group'>
+			<div class='row'>
+				<label for='medication1' class='col-sm-2 control-label'>Medication 1</label>
+					<div class='col-sm-4'><select class='form-control' name='select1'>
+			<?php 
 			foreach($medications as $item => $value) {
 				if (isset($patient['MEDICATION_1'])) {
 					if ($value == $patient['MEDICATION_1']) {
@@ -103,8 +123,7 @@
 			echo "<div class='form-group'><div class='row'><div class='col-sm-2'>";
 			echo "<button type='submit' class='btn' value='Submit'>Add to Queue</button></div>";
 			echo "</div></div></div>";
-
-		?>
+			?>
 
 			
 			
