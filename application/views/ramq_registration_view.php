@@ -1,4 +1,4 @@
-<div class="header"><h3 class="text-muted">Patient Registration & Triage Queuing</h3> <p class='pull-right' style='margin-right:10px;'>Signed in as <?php echo $this->session->userdata('logged_in')['USER_NAME']; ?></p>
+<div class="header"><h3 class="text-muted">Enter RAMQ<small class='pull-right' style='margin-right:10px;'>Signed in as <?php echo $this->session->userdata('logged_in')['USER_NAME']; ?></small></h3>
 <!-- end header -->				
 </div>
 
