@@ -14,6 +14,7 @@ class RamqRegistration extends CI_Controller {
 		
 		// ramq field is required for form submittal.     
 		$this->form_validation->set_rules('ramq', 'RAMQ', 'trim|required|xss_clean');
+		
 		$this->form_validation->set_error_delimiters("<div class='alert alert-danger' role='alert'>
 		<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
 		<span class='sr-only'>Error:</span>", '</div>');

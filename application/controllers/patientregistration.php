@@ -13,6 +13,20 @@ class PatientRegistration extends CI_Controller
     }
     function index()
     {
+		
+		// set form rules
+		$this->form_validation->set_rules('ramq', 'RAMQ', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('firstName', 'first name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('lastName', 'last name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('homePhone', 'home phone', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('emergencyPhone', 'emergency contact', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('conditions', 'existing conditions', 'trim|required|xss_clean');
+
+		$this->form_validation->set_error_delimiters("<div class='alert alert-danger' role='alert'>
+		<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
+		<span class='sr-only'>Error:</span>", '</div>');
+
+	
 		// read ramq id from flash data.
 		$this->session->keep_flashdata('ramq');
 		$ramq = $this->session->flashdata('ramq');
@@ -30,8 +44,8 @@ class PatientRegistration extends CI_Controller
 					$this->show_registration($patient);
 					}
 				else {
-					$patient = $this->get_patient();
-					$this->show_registration($patient);	
+					// form has been successfully submitted, add to queue and redirect.
+					redirect("addtoqueue", 'refresh');
 				}
 		}
 	}

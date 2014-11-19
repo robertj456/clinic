@@ -7,7 +7,7 @@
 		 
 		<?php 
 
-		echo form_open('addtoqueue');
+		echo form_open('patientregistration');
 		echo '<div class="form" role="form">';
 		echo validation_errors();
 
