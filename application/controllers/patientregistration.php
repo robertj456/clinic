@@ -8,51 +8,45 @@ class PatientRegistration extends CI_Controller
     {
         parent::__construct();
 		$this->load->library('form_validation');
+		$this->load->library('session');
+
     }
     function index()
     {
-	
-	    $this->form_validation->set_rules('ramq', 'RAMQ', 'trim|required|xss_clean');
-		
+		// read ramq id from flash data.
+		$this->session->keep_flashdata('ramq');
+		$ramq = $this->session->flashdata('ramq');
+			
 		// if user is not logged in or does not have receptionist privileges.
         if (!$this->session->userdata('logged_in') || !$this->session->userdata('logged_in')['RECEPTION']) {
             redirect('login', 'refresh');
 			
         } else {
-			
-			// form has not yet been submitted.
-			if (!$_POST) {
-				$this->show_registration(null);
-				return;
-			}
-			
+						
 			// form has been submitted
-			else {
 				// user made an error submitting form.
 			    if ($this->form_validation->run() == FALSE ) {	
-					$this->show_registration(null);
+					$patient = $this->get_patient($ramq);
+					$this->show_registration($patient);
 					}
 				else {
 					$patient = $this->get_patient();
 					$this->show_registration($patient);	
 				}
-			
-
 		}
 	}
-    }
-    function get_patient()
+  
+    function get_patient($ramq)
     {
         // create instance of user model
-        
         $this->load->model('patient');
-        $ramq    = $this->input->post('ramq');
+
         $patient = ($this->patient->findPatient($ramq));
-		
+				
 		if (!$patient) {
 		    $this->form_validation->set_message('get_patient', 'No patient found');
 			return array(
-			'RAMQ_ID' => $this->input->post('ramq')
+			'RAMQ_ID' => $ramq
 			);
 		}
 		
@@ -103,12 +97,7 @@ class PatientRegistration extends CI_Controller
 		
         $this->load->view('footer');
     }
-    
-	function show_patient_info() {
-	
-	
-	}
-	
+    	
     function logout()
     {
         $this->session->unset_userdata('logged_in');

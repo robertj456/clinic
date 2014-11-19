@@ -7,8 +7,6 @@
 		 
 		<?php 
 
-		if (isset($patient['RAMQ_ID'])) {
-
 		echo form_open('addtoqueue');
 		echo '<div class="form" role="form">';
 		echo validation_errors();
@@ -105,22 +103,7 @@
 			echo "<div class='form-group'><div class='row'><div class='col-sm-2'>";
 			echo "<button type='submit' class='btn' value='Submit'>Add to Queue</button></div>";
 			echo "</div></div></div>";
-			
-			}
 
-			else {
-				echo form_open('patientregistration');
-				echo "<div class='form' role='form'>";
-				echo validation_errors();
-				echo form_error('get_patient');
-				echo "<div class='form-group'>";
-				echo "<label for='inputRAMQ'>Please enter patient's RAMQ number</label>";
-				echo "<input type='text' class='form-control' name='ramq' id='ramq' placeholder='Enter Patient's RAMQ Number'>";
-				echo "</div><div class='form-group'>";
-				echo "<button type='submit' class='btn' value='Submit'>Submit</button></div></div>";
-			}
-		
-		
 		?>
 
 			

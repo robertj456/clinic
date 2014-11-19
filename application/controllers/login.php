@@ -16,8 +16,11 @@ class Login extends CI_Controller
         $this->load->library('form_validation');
         $this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|callback_login_user');
-        $this->form_validation->set_error_delimiters('<span class="help-block">', '</span>');
-        if ($this->form_validation->run() == FALSE) {
+		$this->form_validation->set_error_delimiters("<div class='alert alert-danger' role='alert'>
+		<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
+		<span class='sr-only'>Error:</span>", '</div>');
+        
+		if ($this->form_validation->run() == FALSE) {
             $headerData = array(
                 'title' => 'CQS - Login'
             );
@@ -36,7 +39,7 @@ class Login extends CI_Controller
 			//$this->load->view('header', $headerData);
 			//$this->load->view('patient_registration_view');
 			//$this->load->view('footer');
-            redirect('patientregistration', 'refresh');
+            redirect('ramqregistration', 'refresh');
         }
     }
     function login_user($password)
