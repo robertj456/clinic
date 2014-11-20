@@ -21,6 +21,7 @@ class PatientRegistration extends CI_Controller
 		$this->form_validation->set_rules('homePhone', 'home phone', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('emergencyPhone', 'emergency contact', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('conditions', 'existing conditions', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('primaryPhysician', 'primary physician', 'trim|required|xss_clean');
 
 		$this->form_validation->set_error_delimiters("<div class='alert alert-danger' role='alert'>
 		<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
@@ -45,7 +46,15 @@ class PatientRegistration extends CI_Controller
 					}
 				else {
 					// form has been successfully submitted, add to queue and redirect.
-					redirect("addtoqueue", 'refresh');
+					
+					// should check to make sure patient's RAMQ isn't already in DB first.
+					
+					$patient = $_POST;
+					var_dump($patient);
+					//$insert = $this->addPatient($patient);
+					
+					
+					//redirect("ramqregistration", 'refresh');
 				}
 		}
 	}
@@ -112,8 +121,21 @@ class PatientRegistration extends CI_Controller
         $this->load->view('footer');
     }
     	
-    function logout()
-    {
+	function addPatient($patient) {
+	    // create instance of user model
+        $this->load->model('patient');
+        $added = ($this->patient->addPatient($patient));
+		if ($added) {
+			return $added;				
+		}
+		else {
+			return false;
+		}
+
+	}
+		
+    function logout() {
+
         $this->session->unset_userdata('logged_in');
         session_destroy();
         redirect('login', 'refresh');

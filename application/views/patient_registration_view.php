@@ -55,12 +55,20 @@
 				</div>
 			</div>
 		</div>
+				
+		<div class='form-group'>
+			<div class='row'><label for='inputPhysician' class='col-sm-2 control-label'>Primary Physician</label>
+				<div class='col-sm-4'>
+					<input type='text' class='form-control' name='primaryPhysician' placeholder='Primary Physician'
+						<?php echo isset($patient['PRIMARY_PHYSICIAN']) ? "value= \"$patient[PRIMARY_PHYSICIAN]\"" : ""; ?> >
+				</div>
+			</div>
+		</div>
 			
 		<div class='form group'>
 			<div class='row'>
 				<label for='conditions' class='col-sm-2 control-label'>Existing Conditions</label>
-					<div class='col-lg-8 col-md-4 col-sm-4'><textarea class='form-control' style='margin-bottom:20px;' name='conditions' placeholder='Existing conditions'>
-						<?php echo isset($patient['EXISTING_CONDITIONS']) ? "$patient[EXISTING_CONDITIONS]</textarea>" : "</textarea>"; ?> 
+					<div class='col-lg-8 col-md-4 col-sm-4'><textarea class='form-control' style='margin-bottom:20px;' name='conditions' placeholder='Existing conditions'><?php echo isset($patient['EXISTING_CONDITIONS']) ? "$patient[EXISTING_CONDITIONS]</textarea>" : "</textarea>"; ?> 
 					</div>
 			</div>
 		</div>
