@@ -13,7 +13,7 @@
 			<div class='row'>
 				<label for='ramq' class='col-sm-2 control-label'>RAMQ</label>
 				<div class='col-sm-4'>
-					<input type='text' class='form-control' name='ramq' placeholder='Ramq' value=<?php echo $patient['RAMQ_ID']?>>
+					<input type='text' readonly='readonly' class='form-control' name='ramq' placeholder='Ramq' value=<?php echo $patient['RAMQ_ID']?>>
 				</div>
 			</div>
 		</div>

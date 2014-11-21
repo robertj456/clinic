@@ -17,9 +17,9 @@ Class Patient extends CI_Model {
 		}
 	}
 	
+
 	function addPatient($patient) {
-	
-		// insure guy isn't already in db first.
+			
 		$data = array(
 			'RAMQ_ID' => $patient['ramq'],
 			'FIRST_NAME' => $patient['firstName'],
@@ -38,8 +38,20 @@ Class Patient extends CI_Model {
 	}
 	
 	function updatePatient($patient) {
+		
+		$data = array(
+			'RAMQ_ID' => $patient['ramq'],
+			'FIRST_NAME' => $patient['firstName'],
+			'LAST_NAME' => $patient['lastName'],
+			'HOME_PHONE' => $patient['homePhone'],
+			'EMERGENCY_PHONE' => $patient['emergencyPhone'],
+			'PRIMARY_PHYSICIAN' => $patient['primaryPhysician'],
+			'EXISTING_CONDITIONS' => $patient['conditions'],
+			'MEDICATION_1' => $patient['select1'],
+			'MEDICATION_2' => $patient['select2'],
+			'MEDICATION_3' => $patient['select3'] );
 	
-	
+		$insert = $this->db->update('PATIENT', $data);
 	}
 
 }

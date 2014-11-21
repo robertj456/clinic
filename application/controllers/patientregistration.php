@@ -3,17 +3,15 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class PatientRegistration extends CI_Controller
-{    
+{    	
     function __construct()
     {
         parent::__construct();
 		$this->load->library('form_validation');
-		$this->load->library('session');
 
     }
     function index()
-    {
-		
+    {		
 		// set form rules
 		$this->form_validation->set_rules('ramq', 'RAMQ', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('firstName', 'first name', 'trim|required|xss_clean');
@@ -39,22 +37,33 @@ class PatientRegistration extends CI_Controller
         } else {
 						
 			// form has been submitted
+				$patient = $this->get_patient($ramq);
+				if (isset($patient['PATIENT_ID'])) {
+					$patient_id = $patient['PATIENT_ID'];
+				}
+			
 				// user made an error submitting form.
 			    if ($this->form_validation->run() == FALSE ) {	
-					$patient = $this->get_patient($ramq);
 					$this->show_registration($patient);
 					}
 				else {
 					// form has been successfully submitted, add to queue and redirect.
 					
-					// should check to make sure patient's RAMQ isn't already in DB first.
-					
 					$patient = $_POST;
-					var_dump($patient);
-					//$insert = $this->addPatient($patient);
+
+					// if patient id exists, patient is already in DB, therefore update.
+					if (isset($patient_id)) {
+						$this->updatePatient($patient);
+					}
+					// patient is not yet in db, inset.
+					else {
+						$this->addPatient($patient);
+					}
 					
+					// add to triage queue.
 					
-					//redirect("ramqregistration", 'refresh');
+					// send flash data to confirm that patient was added or updated to triage.
+					redirect("ramqregistration", 'refresh');
 				}
 		}
 	}
@@ -89,34 +98,34 @@ class PatientRegistration extends CI_Controller
             'title' => 'CQS - Patient Registration'
         );
         
-		$this->load->view('header', $headerData);        
-		if ($patient != null) {
-		
-
+		$this->load->view('header', $headerData);   
+				
 			$medications = array (
-				'1' => 'Xanax',
-				'2' => 'Tramadol',
-				'3' => 'Lipitor',
-				'4' => 'Ambien',
-				'5' => 'Coffee',
-				'6' => 'Donuts',
-				'7' => 'Cheeseburgers',
-				'8' => 'Beer',
-				'9' => 'Morphine',
-				'10' => 'Hot Chocolate',
-				'11' => 'Advil',
-				'12' => 'Caffeine Pills'
+				'1' => 'Benzamycin',
+				'2' => 'Accutane',
+				'3' => 'Tamiflu',
+				'4' => 'Acetaminophen',
+				'5' => 'Advil',
+				'6' => 'Levaquin',
+				'7' => 'Vioxx',
+				'8' => 'Celebrex',
+				'9' => 'Zyprexa',
+				'11' => 'Paxil',
+				'12' => 'Nicoderm',
+				'13' => 'Lorazepam',
+				'14' => 'Elidel',
+				'15' => 'Pegasys',
+				'16' => 'Clikstar',
+				'17' => 'Levaquin',
+				'18' => 'Advair Diskus',
+				'19' => 'Nexium',
+				'20' => 'Kenalog'
 			);
 			
 			$data['medications'] = $medications;
 			$data['patient'] = $patient;
 
 			$this->load->view('patient_registration_view', $data);
-		}
-		else {
-			$this->load->view('patient_registration_view');
-
-		}
 		
         $this->load->view('footer');
     }
@@ -134,6 +143,17 @@ class PatientRegistration extends CI_Controller
 
 	}
 		
+	function updatePatient($patient) {
+	    // create instance of user model
+        $this->load->model('patient');
+        $updated = ($this->patient->updatePatient($patient));
+		if ($updated) {
+			return $updated;				
+		}
+		else {
+			return false;
+		}
+	}
     function logout() {
 
         $this->session->unset_userdata('logged_in');

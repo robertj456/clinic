@@ -33,6 +33,7 @@ class RamqRegistration extends CI_Controller {
 					// therefore we save it in the flash data.
 					$this->session->set_flashdata('ramq', $_POST['ramq']);
 					redirect("patientregistration", 'refresh');
+					
 				}
 		}
 		
