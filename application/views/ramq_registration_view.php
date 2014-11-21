@@ -8,7 +8,17 @@
 <?php echo form_open('ramqregistration'); ?>
 <div class='form' role='form'>
 <?php echo validation_errors(); ?>				
+	
+	
+	<?php if ($added) {
 
+	echo "<div class='alert alert-success' role='alert'> 
+	<span class='glyphicon glyphicon-user' aria-hidden='true'></span>
+		<span class='sr-only'>Error:</span>";
+	echo " $added </div>";
+	}
+	?>
+	
 	<div class='form-group'>
 		<label for='inputRAMQ'>Please enter patient's RAMQ number</label>
 		<input type='text' class='form-control' name='ramq' id='ramq' placeholder="Enter Patient's RAMQ Number">

@@ -50,7 +50,8 @@ class RamqRegistration extends CI_Controller {
 			));
 
 			$headerData = array(
-				'title' => 'CQS - Patient Registration'
+				'title' => 'CQS - Patient Registration',
+				'added' =>  $this->session->flashdata('change')
 			);
 			$this->load->view('header', $headerData);        
 			$this->load->view('ramq_registration_view');		

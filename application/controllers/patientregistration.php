@@ -54,6 +54,7 @@ class PatientRegistration extends CI_Controller
 					// if patient id exists, patient is already in DB, therefore update.
 					if (isset($patient_id)) {
 						$this->updatePatient($patient);
+
 					}
 					// patient is not yet in db, inset.
 					else {
@@ -62,7 +63,11 @@ class PatientRegistration extends CI_Controller
 					
 					// add to triage queue.
 					
+					$message = $patient['firstName'] . " " . $patient['lastName'] . " was added to the queue";
+					
 					// send flash data to confirm that patient was added or updated to triage.
+					$this->session->set_flashdata('change', $message);
+
 					redirect("ramqregistration", 'refresh');
 				}
 		}
