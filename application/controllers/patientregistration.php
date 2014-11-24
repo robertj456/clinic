@@ -53,7 +53,7 @@ class PatientRegistration extends CI_Controller
 
 					// if patient id exists, patient is already in DB, therefore update.
 					if (isset($patient_id)) {
-						$this->updatePatient($patient);
+						$this->updatePatient($patient, $patient_id);
 
 					}
 					// patient is not yet in db, inset.
@@ -68,6 +68,7 @@ class PatientRegistration extends CI_Controller
 					// send flash data to confirm that patient was added or updated to triage.
 					$this->session->set_flashdata('change', $message);
 
+					
 					redirect("ramqregistration", 'refresh');
 				}
 		}
@@ -148,10 +149,10 @@ class PatientRegistration extends CI_Controller
 
 	}
 		
-	function updatePatient($patient) {
+	function updatePatient($patient, $patient_id) {
 	    // create instance of user model
         $this->load->model('patient');
-        $updated = ($this->patient->updatePatient($patient));
+        $updated = ($this->patient->updatePatient($patient, $patient_id));
 		if ($updated) {
 			return $updated;				
 		}

@@ -37,7 +37,7 @@ Class Patient extends CI_Model {
 		return $insert;	
 	}
 	
-	function updatePatient($patient) {
+	function updatePatient($patient, $patient_id) {
 		
 		$data = array(
 			'RAMQ_ID' => $patient['ramq'],
@@ -50,8 +50,8 @@ Class Patient extends CI_Model {
 			'MEDICATION_1' => $patient['select1'],
 			'MEDICATION_2' => $patient['select2'],
 			'MEDICATION_3' => $patient['select3'] );
-	
-		$insert = $this->db->update('PATIENT', $data);
+		$this->db->where('PATIENT_ID', $patient_id);
+		$this->db->update('PATIENT', $data);
 	}
 
 }
