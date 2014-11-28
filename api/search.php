@@ -1,6 +1,6 @@
 <?php
 include 'database.php';
-
+//quick validation
 if (isset ( $_GET ['visitID'] ) && is_numeric ( $_GET ['visitID'] )) {
 	$visit = $_GET ['visitID'];
 	// visit info
@@ -25,7 +25,7 @@ if (isset ( $_GET ['visitID'] ) && is_numeric ( $_GET ['visitID'] )) {
 	$queue = new SplQueue ();
 	$count = 0;
 	
-	
+	//makes sure there is a queue
 	if (isset ( $queuecontent [0] ['QUEUE_CONTENT'] )) {
 		$queue->unserialize ( $queuecontent [0] ['QUEUE_CONTENT'] );
 		
@@ -74,6 +74,8 @@ for ($i=1;$i<6;)
 			}
 		}
 		$i=$i+1;
+		
+		
 	}
 	
 	// finally adds the number of patients before user in their queue a head of them
@@ -93,7 +95,7 @@ for ($i=1;$i<6;)
 			$patient [0],
 			$queues
 	];
-	
+	//prints it
 	echo json_encode ( $json );
 } 
 
